@@ -53,7 +53,8 @@ CREATE TABLE Orders (
     order_type ENUM('buy', 'sell') NOT NULL,
     currency_symbol VARCHAR(10) NOT NULL,
     price DECIMAL(18, 8) NOT NULL,
-    quantity DECIMAL(18, 8) NOT NULL,
+
+    quantity INTEGER NOT NULL,
     status ENUM('open', 'closed', 'cancelled') NOT NULL DEFAULT 'open',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

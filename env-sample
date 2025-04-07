@@ -1,0 +1,11 @@
+PORT=4000
+
+# Kafka
+KAFKA_BROKERS=localhost:9092
+KAFKA_TOPIC="orders"
+
+# Database
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD="Pass@123"
+DB_NAME=crypto_trading

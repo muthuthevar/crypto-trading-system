@@ -79,19 +79,9 @@ KAFKA_TOPIC=orders
 PORT=3000
 ```
 
-### 5. Set up Confluent Kafka
+### 5. Set up Confluent Kafka Cloud
 
-If you don't have Confluent Kafka installed, you can use Docker to run it:
-
-```bash
-docker-compose up -d
-```
-
-Create the topic:
-
-```bash
-docker exec -it kafka kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic orders
-```
+Create a cluster and topic in [Confluent Cloud](https://confluent.cloud/). Update the `KAFKA_BROKERS` and `KAFKA_TOPIC` variables in the `.env` file accordingly.
 
 ### 6. Build and run the application
 

@@ -14,7 +14,7 @@ A Node.js TypeScript application that handles cryptocurrency trading orders with
 - Node.js (v14 or higher)
 - MySQL (v8.0 or higher)
 - Confluent Kafka or Kafka (with zookeeper)
-- npm or yarn
+- npm or yarn or pnpm
 
 ## Setup Instructions
 

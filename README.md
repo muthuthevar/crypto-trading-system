@@ -33,13 +33,7 @@ npm install
 
 ### 3. Set up MySQL database
 
-Run the SQL script in `database/schema.sql` to create the required tables:
-
-```bash
-mysql -u your_username -p < database/schema.sql
-```
-
-Or run the SQL commands manually in your MySQL client:
+Run the SQL commands manually in your MySQL client:
 
 ```sql
 CREATE DATABASE crypto_trading;

@@ -87,6 +87,11 @@ async function processOrder(order: Order) {
   }
 }
 
+// Start the consumer if this file is run directly
+if (require.main === module) {
+  initConsumer().catch(console.error);
+}
+
 export async function disconnectConsumer() {
   await consumer.disconnect();
 }

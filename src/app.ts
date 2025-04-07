@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import orderRoutes from "./routes/orderRoutes";
 import { initProducer } from "./kafka/producer";
-import { initConsumer } from "./kafka/consumer";
 
 dotenv.config();
 
@@ -25,7 +24,6 @@ async function startServer() {
   try {
     // Initialize Kafka producer
     await initProducer();
-    await initConsumer();
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

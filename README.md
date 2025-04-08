@@ -114,7 +114,7 @@ Request body:
   "order_type": "buy",
   "currency_symbol": "BTC",
   "price": 5.123456,
-  "quantity": 2.5
+  "quantity": 2
 }
 ```
 
@@ -127,7 +127,7 @@ Response:
   "order_type": "buy",
   "currency_symbol": "BTC",
   "price": 5.123456,
-  "quantity": 5,
+  "quantity": 2,
   "status": "open"
 }
 ```
@@ -145,10 +145,6 @@ curl -X POST http://localhost:3000/api/orders \
   -H "Content-Type: application/json" \
   -d '{"user_id": 1, "order_type": "buy", "currency_symbol": "BTC", "price": 5.123456, "quantity": 2}'
 ```
-
-## Demo Video
-
-[Link to your demo video showing the system in action]
 
 ## Project Structure
 

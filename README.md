@@ -127,7 +127,7 @@ Response:
   "order_type": "buy",
   "currency_symbol": "BTC",
   "price": 5.123456,
-  "quantity": 2.5,
+  "quantity": 5,
   "status": "open"
 }
 ```
@@ -143,7 +143,7 @@ Example curl command:
 ```bash
 curl -X POST http://localhost:3000/api/orders \
   -H "Content-Type: application/json" \
-  -d '{"user_id": 1, "order_type": "buy", "currency_symbol": "BTC", "price": 5.123456, "quantity": 2.5}'
+  -d '{"user_id": 1, "order_type": "buy", "currency_symbol": "BTC", "price": 5.123456, "quantity": 2}'
 ```
 
 ## Demo Video

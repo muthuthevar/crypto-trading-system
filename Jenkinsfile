@@ -18,73 +18,22 @@ pipeline {
             }
         }
         
-        stage('Install Dependencies') {
+        stage('Docker Build') {
             steps {
                 script {
-                    // Install Node.js dependencies locally for testing
-                    sh '''
-                        node --version
-                        npm --version
-                        npm ci
-                    '''
+                    docker build -t crypto-trading-system .
                 }
             }
         }
         
-        stage('Run Tests') {
+        stage('Docker Run') {
             steps {
                 script {
-                    // Run your test suite
-                    sh '''
-                        npm test
-                    '''
+                    docker run -d -p 3000:3000 crypto-trading-system
                 }
             }
         }
         
-        stage('Build Application') {
-            steps {
-                script {
-                    // Build the application if needed
-                    sh '''
-                        if [ -f "package.json" ] && grep -q '"build"' package.json; then
-                            npm run build
-                        else
-                            echo "No build script found, skipping build step"
-                        fi
-                    '''
-                }
-            }
-        }
-        
-        stage('Deploy to Local Machine') {
-            steps {
-                script {
-                    // Deploy to Local Machine instance
-                    sh '''
-                        # Copy application files to Local Machine
-                        cp -r ./* /home/muthu/crypto-trading-system
-                        
-                        # Install dependencies and setup application on Local Machine
-                        cd /home/muthu/crypto-trading-system
-                        npm ci --production
-                        npm start
-                    '''
-                }
-            }
-        }
-        
-        stage('Cleanup Old Releases') {
-            steps {
-                script {
-                    // Keep only last 5 releases
-                    sh '''
-                        cd /home/muthu/crypto-trading-system
-                        ls -t | tail -n +6 | xargs rm -rf --
-                    '''
-                }
-            }
-        }
     }
     
     post {

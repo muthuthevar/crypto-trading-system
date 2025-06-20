@@ -12,24 +12,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    // Checkout code from GitLab repository
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "${GITLAB_BRANCH}"]],
-                        userRemoteConfigs: [[
-                            url: "${GITLAB_REPO}",
-                            credentialsId: 'github-credentials'
-                        ]]
-                    ])
-                    
-                    // Display current commit info
-                    sh '''
-                        echo "Current commit:"
-                        git log --oneline -1
-                        echo "Branch: $(git branch --show-current)"
-                    '''
-                }
+                git branch: 'main', 
+                    credentialsId: 'github-credentials', 
+                    url: 'https://github.com/muthuthevar/crypto-trading-system.git'
             }
         }
         

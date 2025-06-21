@@ -76,7 +76,7 @@ pipeline {
                     sleep(time: 5, unit: 'SECONDS')
                     
                     // Check if container is running
-                    sh "docker ps | grep ${CONTAINER_NAME}"
+                    sh "docker ps | grep crypto-trading-system"
                 }
             }
         }
@@ -129,7 +129,7 @@ pipeline {
             
             // Display application logs (last 20 lines)
             sh "echo 'Application logs:'"
-            sh "docker logs --tail 20 ${CONTAINER_NAME} || true"
+            sh "docker logs --tail 20 crypto-trading-system || true"
         }
         
         success {
@@ -141,12 +141,12 @@ pipeline {
             echo 'Pipeline failed!'
             
             // Show container logs for debugging
-            sh "docker logs ${CONTAINER_NAME} || true"
+            sh "docker logs crypto-trading-system || true"
             
             // Cleanup failed deployment
             sh """
-                docker stop ${CONTAINER_NAME} || true
-                docker rm ${CONTAINER_NAME} || true
+                docker stop crypto-trading-system || true
+                docker rm crypto-trading-system || true
             """
         }
     }

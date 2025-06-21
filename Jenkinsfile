@@ -35,29 +35,29 @@ pipeline {
                 echo 'Building Docker image...'
                 script {
                     // Build Docker image with build number tag
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    sh "docker build -t crypto-trading-system ."
                     
                     // Tag as latest
-                    sh "docker tag ${DOCKER_IMAGE} ${DOCKER_IMAGE_LATEST}"
+                    sh "docker tag crypto-trading-system crypto-trading-system:latest"
                     
                     // List Docker images to verify build
-                    sh 'docker images | grep ${APP_NAME}'
+                    sh 'docker images | grep crypto-trading-system'
                 }
             }
         }
         
-        stage('Stop Existing Container') {
-            steps {
-                echo 'Stopping and removing existing container if running...'
-                script {
-                    // Stop container if running (ignore errors if not running)
-                    sh """
-                        docker stop ${CONTAINER_NAME} || true
-                        docker rm ${CONTAINER_NAME} || true
-                    """
-                }
-            }
-        }
+        // stage('Stop Existing Container') {
+        //     steps {
+        //         echo 'Stopping and removing existing container if running...'
+        //         script {
+        //             // Stop container if running (ignore errors if not running)
+        //             sh """
+        //                 docker stop ${CONTAINER_NAME} || true
+        //                 docker rm ${CONTAINER_NAME} || true
+        //             """
+        //         }
+        //     }
+        // }
         
         stage('Deploy Application') {
             steps {
@@ -66,10 +66,10 @@ pipeline {
                     // Run the Docker container
                     sh """
                         docker run -d \\
-                            --name ${CONTAINER_NAME} \\
-                            -p ${HOST_PORT}:${CONTAINER_PORT} \\
+                            --name crypto-trading-system \\
+                            -p 3000:3000 \\
                             --restart unless-stopped \\
-                            ${DOCKER_IMAGE_LATEST}
+                            crypto-trading-system
                     """
                     
                     // Wait a moment for container to start
@@ -81,27 +81,27 @@ pipeline {
             }
         }
         
-        stage('Health Check') {
-            steps {
-                echo 'Performing health check...'
-                script {
-                    // Basic health check - verify container is running
-                    def containerStatus = sh(
-                        script: "docker inspect -f '{{.State.Running}}' ${CONTAINER_NAME}",
-                        returnStdout: true
-                    ).trim()
+        // stage('Health Check') {
+        //     steps {
+        //         echo 'Performing health check...'
+        //         script {
+        //             // Basic health check - verify container is running
+        //             def containerStatus = sh(
+        //                 script: "docker inspect -f '{{.State.Running}}' ${CONTAINER_NAME}",
+        //                 returnStdout: true
+        //             ).trim()
                     
-                    if (containerStatus == 'true') {
-                        echo 'Container is running successfully!'
+        //             if (containerStatus == 'true') {
+        //                 echo 'Container is running successfully!'
                         
-                        // Optional: HTTP health check if your app has a health endpoint
-                        // sh 'curl -f http://localhost:${HOST_PORT}/health || exit 1'
-                    } else {
-                        error 'Container failed to start properly'
-                    }
-                }
-            }
-        }
+        //                 // Optional: HTTP health check if your app has a health endpoint
+        //                 // sh 'curl -f http://localhost:${HOST_PORT}/health || exit 1'
+        //             } else {
+        //                 error 'Container failed to start properly'
+        //             }
+        //         }
+        //     }
+        // }
         
         stage('Cleanup Old Images') {
             steps {
